@@ -12,14 +12,14 @@ songplay_table_create = (
     """
     CREATE TABLE IF NOT EXISTS songplays (
       songplay_id SERIAL PRIMARY KEY, 
-      start_time bigint,
-      user_id int,
-      level varchar,
+      start_time bigint NOT NULL,
+      user_id int NOT NULL,
+      level varchar NOT NULL,
       song_id varchar,
       artist_id varchar,
-      session_id int,
-      location varchar, 
-      user_agent varchar
+      session_id int NOT NULL,
+      location varchar NOT NULL, 
+      user_agent varchar NOT NULL
     ) 
     """
 )
@@ -100,7 +100,7 @@ user_table_insert = (
         gender,
         level
     ) VALUES (%s, %s, %s, %s, %s)
-    ON CONFLICT (user_id) DO NOTHING
+    ON CONFLICT (user_id) DO UPDATE SET level=EXCLUDED.level
     """
 )
 
